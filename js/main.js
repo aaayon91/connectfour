@@ -91,12 +91,16 @@ function checkWin() {
 function handleTurn(evt) {
     console.log(evt.target)
     let rowIdx = evt.target.id.substr(1, 1)
-        // console.log(evt.target.id);
-        // console.log(rowIdx);
+    // console.log(evt.target.id);
+    // console.log(rowIdx);
 
-        let colIdx = evt.target.id.substr(3, 1)
-        // console.log(evt.target.id);
-        // console.log(colIdx);
+    let colIdx = evt.target.id.substr(3, 1)
+    // console.log(evt.target.id);
+    // console.log(colIdx);
+
+    // loop from the bottom of the column to the top
+    // find first empty spot and populate with the player's value
+
 
     if (!board[rowIdx][colIdx]) {
         board[rowIdx][colIdx] = turn;
