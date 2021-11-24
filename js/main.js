@@ -58,55 +58,159 @@ function render() {
     }
 }
 
-function checkWin() {
-    //checkUp:
-    // if {
+function checkWin(rowIdx, colIdx) {
+    // Each direction function can return a number of 'how many in a row'
+    // store all those numbers in variable and then you can check:
+    // if upPieces + downPieces <= 3
+    const downPieces = checkDown(rowIdx, colIdx);
+    const rightPieces = checkRight(rowIdx, colIdx);
+    const leftPieces = checkLeft(rowIdx, colIdx);
+    const upRightPieces = checkUpRight(rowIdx, colIdx);
+    const downLeftPieces = checkDownLeft(rowIdx, colIdx);
+    const upLeftPieces = checkUpLeft(rowIdx, colIdx);
+    const downRightPieces = checkDownRight(rowIdx, colIdx);
+    
+    // console.log(leftPieces)
+    console.log(downRightPieces)
 
-    // }
-
-
-    //checkDown:
-
-
-    //checkRight:
-
-
-    //checkLeft:
-
-
-    //checkUpRight:
-
-
-    //checkDownRight:
-
-
-    //checkUpLeft:
-
-
-    //checkDownLeft:
-
-
+    
 }
 
+
 function handleTurn(evt) {
-    console.log(evt.target)
-    let rowIdx = evt.target.id.substr(1, 1)
+    // console.log(evt.target)
+    let rowIdx = parseInt(evt.target.id.substr(1, 1))
     // console.log(evt.target.id);
     // console.log(rowIdx);
 
-    let colIdx = evt.target.id.substr(3, 1)
+    let colIdx = parseInt(evt.target.id.substr(3, 1))
     // console.log(evt.target.id);
     // console.log(colIdx);
 
+    // console.log(board[rowIdx][colIdx])
+
     // loop from the bottom of the column to the top
     // find first empty spot and populate with the player's value
-
-
-    if (!board[rowIdx][colIdx]) {
-        board[rowIdx][colIdx] = turn;
-        console.log(board[rowIdx][colIdx])
-        checkWin();
-        turn *= -1;
-        render();
+    if (board[0][colIdx]) {
+        console.log('This column is filled up')
+    } else {
+        for (let i = 5; i >= 0; i-- ) {
+            rowIdx = i;
+            if (board[rowIdx][colIdx] === null) {
+                board[rowIdx][colIdx] = turn;
+                // console.log(rowIdx);
+                checkWin(rowIdx, colIdx);
+                changeTurn()
+                render();
+                break;
+            }
+        }
     }
+
+
+    // render();
+
+    // console.log(board[rowIdx][colIdx])
+
+
+
+    // if (!board[rowIdx][colIdx]) {
+    //     board[rowIdx][colIdx] = turn;
+    //     // console.log(board[rowIdx][colIdx])
+    //     checkWin();
+    //     turn *= -1;
+    //     render();
+    // }
+}
+
+function changeTurn() {
+    turn *= -1;
+}
+
+// all this function should return is a number of how many pieces in a row
+function checkDown(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        // console.log('board[rowIdx - i][colIdx] : ', board[rowIdx - i][colIdx])
+        // console.log('turn: ', turn)
+        if (board[rowIdx + i] && board[rowIdx + i][colIdx] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkRight(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        // console.log('board[rowIdx][colIdx + i]: ', board[rowIdx][colIdx + i])
+        if (board[rowIdx][colIdx + i] && board[rowIdx][colIdx + i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkLeft(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (board[rowIdx][colIdx - i] && board[rowIdx][colIdx - i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkUpRight(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (board[rowIdx - i] && board[rowIdx - i][colIdx + i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkDownLeft(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (board[rowIdx + i] && board[rowIdx + i][colIdx - i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkUpLeft(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (board[rowIdx - i] && board[rowIdx - i][colIdx - i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
+}
+
+function checkDownRight(rowIdx, colIdx) {
+    let piecesInRow = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (board[rowIdx + i] && board[rowIdx + i][colIdx + i] === turn) {
+            piecesInRow = piecesInRow + 1;
+        }else {
+            break
+        }
+    }
+    return piecesInRow
 }
