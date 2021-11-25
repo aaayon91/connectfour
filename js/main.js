@@ -70,10 +70,25 @@ function checkWin(rowIdx, colIdx) {
     const upLeftPieces = checkUpLeft(rowIdx, colIdx);
     const downRightPieces = checkDownRight(rowIdx, colIdx);
     
-    // console.log(leftPieces)
-    console.log(downRightPieces)
-
-    
+    if (downPieces === 3) {
+        winner = turn;  
+        tableEl.removeEventListener('click', handleTurn);
+    } else if (rightPieces === 3){
+        winner = turn;  
+        tableEl.removeEventListener('click', handleTurn);
+    } else if (leftPieces === 3){
+        winner = turn;  
+        tableEl.removeEventListener('click', handleTurn);
+    } else if (upRightPieces + downLeftPieces === 3) {
+        winner = turn;  
+        tableEl.removeEventListener('click', handleTurn);
+    } else if ((upLeftPieces + downRightPieces) === 3) {
+        winner = turn;  
+        tableEl.removeEventListener('click', handleTurn);
+    } else if(!winner && !board[rowIdx].includes(null)) {
+        console.log('Hi')
+        winner = 'tie'
+    } 
 }
 
 
