@@ -14,6 +14,8 @@ let board, winner, turn;
 const tableEl = document.querySelector('table');
 const headerEl = document.querySelector('h1'); //need to add id
 const squares = document.querySelectorAll('td div'); //may need columns
+console.log('THIS IS SQUARES ', squares);
+// console.log(squares[8])
 const buttonEl = document.querySelector('button');
 
 
@@ -42,11 +44,14 @@ function init() {
 }
 
 function render() {
+
+    board1d = board.flat();
     //players turn
     headerEl.innerText = lookup[turn] + "'s turn"
 
     //forEach has access to the index number of the current element in the iteration
-    board.forEach(function(tile,idx) {
+    board1d.forEach(function(tile,idx) {
+        // console.log(tile)
         squares[idx].style.background = lookup[tile]
     })
 
@@ -121,21 +126,6 @@ function handleTurn(evt) {
             }
         }
     }
-
-
-    // render();
-
-    // console.log(board[rowIdx][colIdx])
-
-
-
-    // if (!board[rowIdx][colIdx]) {
-    //     board[rowIdx][colIdx] = turn;
-    //     // console.log(board[rowIdx][colIdx])
-    //     checkWin();
-    //     turn *= -1;
-    //     render();
-    // }
 }
 
 function changeTurn() {
