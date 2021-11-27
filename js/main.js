@@ -12,7 +12,7 @@ let board, winner, turn;
 
 /*----- cached element references -----*/
 const tableEl = document.querySelector('table');
-const headerEl = document.querySelector('h1'); //need to add id
+const headerEl = document.querySelector('h2'); //need to add id
 const squares = document.querySelectorAll('td div'); //may need columns
 console.log('THIS IS SQUARES ', squares);
 // console.log(squares[8])
@@ -74,23 +74,22 @@ function checkWin(rowIdx, colIdx) {
     const downLeftPieces = checkDownLeft(rowIdx, colIdx);
     const upLeftPieces = checkUpLeft(rowIdx, colIdx);
     const downRightPieces = checkDownRight(rowIdx, colIdx);
+
+    board1d = board.flat();
     
     if (downPieces === 3) {
         winner = turn;  
         tableEl.removeEventListener('click', handleTurn);
-    } else if (rightPieces === 3){
+    } else if (rightPieces + leftPieces >= 3){
         winner = turn;  
         tableEl.removeEventListener('click', handleTurn);
-    } else if (leftPieces === 3){
+    } else if (upRightPieces + downLeftPieces >= 3) {
         winner = turn;  
         tableEl.removeEventListener('click', handleTurn);
-    } else if (upRightPieces + downLeftPieces === 3) {
+    } else if ((upLeftPieces + downRightPieces) >= 3) {
         winner = turn;  
         tableEl.removeEventListener('click', handleTurn);
-    } else if ((upLeftPieces + downRightPieces) === 3) {
-        winner = turn;  
-        tableEl.removeEventListener('click', handleTurn);
-    } else if(!winner && !board[rowIdx].includes(null)) {
+    } else if(!winner && !board1d.includes(null)) {
         console.log('Hi')
         winner = 'tie'
     } 
