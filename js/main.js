@@ -90,7 +90,7 @@ function checkWin(rowIdx, colIdx) {
         winner = turn;  
         tableEl.removeEventListener('click', handleTurn);
     } else if(!winner && !board1d.includes(null)) {
-        console.log('Hi')
+        // console.log('Hi')
         winner = 'tie'
     } 
 }
