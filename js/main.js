@@ -53,6 +53,26 @@ function render() {
     }
 }
 
+function handleTurn(evt) {
+    let rowIdx = parseInt(evt.target.id.substr(1, 1))
+    let colIdx = parseInt(evt.target.id.substr(3, 1))
+
+    for (let i = 5; i >= 0; i-- ) {
+        rowIdx = i;
+        if (board[rowIdx][colIdx] === null) {
+            board[rowIdx][colIdx] = turn;
+            checkWin(rowIdx, colIdx);
+            changeTurn();
+            render();
+            break;
+        }
+    }
+}
+
+function changeTurn() {
+    turn *= -1;
+}
+
 function checkWin(rowIdx, colIdx) {
     const downPieces = checkDown(rowIdx, colIdx);
     const rightPieces = checkRight(rowIdx, colIdx);
@@ -78,26 +98,6 @@ function checkWin(rowIdx, colIdx) {
     } else if(!winner && !board1d.includes(null)) {
         winner = 'TIE';
     } 
-}
-
-function handleTurn(evt) {
-    let rowIdx = parseInt(evt.target.id.substr(1, 1))
-    let colIdx = parseInt(evt.target.id.substr(3, 1))
-
-    for (let i = 5; i >= 0; i-- ) {
-        rowIdx = i;
-        if (board[rowIdx][colIdx] === null) {
-            board[rowIdx][colIdx] = turn;
-            checkWin(rowIdx, colIdx);
-            changeTurn();
-            render();
-            break;
-        }
-    }
-}
-
-function changeTurn() {
-    turn *= -1;
 }
 
 function checkDown(rowIdx, colIdx) {
