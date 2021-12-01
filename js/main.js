@@ -3,7 +3,7 @@
 const lookup = {
     '1': 'RED',
     '-1': 'YELLOW',
-    null: 'white'
+    null: 'WHITE'
 };
 
 /*----- app's state (variables) -----*/
